@@ -1,16 +1,14 @@
 package com.example.hw_mockito.service;
 
 import com.example.hw_mockito.model.User;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.hw_mockito.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
@@ -19,19 +17,18 @@ class UserServiceTest {
 
     @Mock
     private UserDao userDao;
-    private UserService userService;
-
-    //    В конструкторе класса UserServiceTest используйте метод MockitoAnnotations.initMocks(this);
-    public UserServiceTest(){
-        MockitoAnnotations.initMocks(this); ??
-    }
+    @InjectMocks
+    private UserServiceImpl userService;
 
     @Test
     void checkUserExist() {
         User user = new User(CORRECT_NAME);
         User user1 = new User(INCORRECT_NAME);
-
-        Mockito.when(userService.checkUserExist(user)).then(true); ??
-        Mockito.when(userService.checkUserExist(user1)).then(false); ??
+//        UserServiceTest, в котором нам необходимо протестировать метод checkUserExist из класса UserService
+//        Протестировать его нужно дважды: На возврат true и false при передачи ему разных значений
+//        Значения устанавливаем с помощью функционала Mockito. То есть наша задача "замокать" обращение класса
+//        UserService к классу UserDaoImpl.
+        Mockito.when(userDao.getUserByName(user.getName())).then(true); ??
+        Mockito.when(userDao.getUserByName(user1.getName())).then(false); ??
     }
 }

@@ -4,21 +4,21 @@ import com.example.hw_mockito.model.User;
 import com.example.hw_mockito.service.UserDao;
 import com.example.hw_mockito.service.UserService;
 
-import java.util.List;
-
 public class UserServiceImpl implements UserService {
-    private UserDao userDao;
+    private final UserDao userDao;
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public boolean checkUserExist(User user) {
-        List<User> listUser = userDao.findAllUsers();
-        for (User findUser : listUser) {
+        for (User findUser : userDao.findAllUsers()) {
             if (findUser.equals(user)) {
                 return true;
             }
         }
         return false;
     }
-
 
 }
