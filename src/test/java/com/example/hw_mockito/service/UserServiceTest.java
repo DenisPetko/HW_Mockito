@@ -24,11 +24,7 @@ class UserServiceTest {
     void checkUserExist() {
         User user = new User(CORRECT_NAME);
         User user1 = new User(INCORRECT_NAME);
-//        UserServiceTest, в котором нам необходимо протестировать метод checkUserExist из класса UserService
-//        Протестировать его нужно дважды: На возврат true и false при передачи ему разных значений
-//        Значения устанавливаем с помощью функционала Mockito. То есть наша задача "замокать" обращение класса
-//        UserService к классу UserDaoImpl.
-        Mockito.when(userDao.getUserByName(user.getName())).then(true); ??
+        Mockito.when(userDao.getUserByName(user.getName())).thenReturn(true); ??
         Mockito.when(userDao.getUserByName(user1.getName())).then(false); ??
     }
 }

@@ -4,6 +4,7 @@ import com.example.hw_mockito.model.User;
 import com.example.hw_mockito.service.UserDao;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
     private final List<User> userList;
@@ -13,11 +14,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByName(String name) {
+    public Optional<User> getUserByName(String name) {
         return userList.stream()
                 .filter(user -> user.getName().equals(name))
-                .findAny();  //тут пробовал вернуть Optional<User>, но тогда в тесте
-//        assertEquals(correctUser, userDao.getUserByName(correctUser.getName())) ругается на разные типы
+                .findAny();
     }
 
     @Override
