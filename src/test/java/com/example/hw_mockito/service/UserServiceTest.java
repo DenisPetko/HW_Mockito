@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -28,16 +28,17 @@ class UserServiceTest {
 
     @Test
     void checkUserExistTrue() {
+        User user = new User("Den");
         List<User> userList = List.of(new User("Den"), new User("John"), new User("Brad"));
         Mockito.when(userDao.findAllUsers()).thenReturn(userList);
-        assertEquals(userDao.findAllUsers(), userList);
+        assertTrue(userService.checkUserExist(user));
     }
 
     @Test
     void checkUserExistFalse() {
-        List<User> userListIncorrect = List.of(new User(INCORRECT_NAME), new User("John"), new User("Brad"));
+        User user = new User(INCORRECT_NAME);
+        List<User> userListIncorrect = List.of(new User("Den"), new User("John"), new User("Brad"));
         Mockito.when(userDao.findAllUsers()).thenReturn(userListIncorrect);
-        assertEquals(userDao.findAllUsers(), userListIncorrect);
-
+        assertFalse(userService.checkUserExist(user));
     }
 }
